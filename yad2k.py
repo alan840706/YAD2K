@@ -112,9 +112,9 @@ def _main(args):
             activation = cfg_parser[section]['activation']
             batch_normalize = 'batch_normalize' in cfg_parser[section]
             if(int('groups' in cfg_parser[section])==1):
-              groups = int(cfg_parser[section]['groups'])
+              groups_count = int(cfg_parser[section]['groups'])
             else:
-              groups = 1
+              groups_count = 1
             # padding='same' is equivalent to Darknet pad=1
             padding = 'same' if pad == 1 else 'valid'
 
@@ -124,7 +124,7 @@ def _main(args):
             prev_layer_shape = K.int_shape(prev_layer)
 
             # TODO: This assumes channel last dim_ordering.
-            weights_shape = (size, size, prev_layer_shape[-1], filters)
+            weights_shape = (size, size, prev_layer_shape[-1]/groups_count, filters)
             darknet_w_shape = (filters, weights_shape[2], size, size)
             weights_size = np.product(weights_shape)
 
@@ -177,11 +177,11 @@ def _main(args):
                 raise ValueError(
                     'Unknown activation function `{}` in section {}'.format(
                         activation, section))
-
             # Create Conv2D layer
             conv_layer = (Conv2D(
                 filters, (size, size),
                 strides=(stride, stride),
+                groups=groups_count,
                 kernel_regularizer=l2(weight_decay),
                 use_bias=not batch_normalize,
                 weights=conv_weights,
