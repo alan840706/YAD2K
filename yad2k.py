@@ -111,7 +111,7 @@ def _main(args):
             pad = int(cfg_parser[section]['pad'])
             activation = cfg_parser[section]['activation']
             batch_normalize = 'batch_normalize' in cfg_parser[section]
-            if('groups' in cfg_parser[section]==True):
+            if(int('groups' in cfg_parser[section])==1):
               groups = int(cfg_parser[section]['groups'])
               print(groups)
             # padding='same' is equivalent to Darknet pad=1
