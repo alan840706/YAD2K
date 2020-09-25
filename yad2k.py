@@ -109,8 +109,8 @@ def _main(args):
             size = int(cfg_parser[section]['size'])
             stride = int(cfg_parser[section]['stride'])
             pad = int(cfg_parser[section]['pad'])
-            groups = int(cfg_parser[section]['groups'])
-            print(groups)
+            #groups = int(cfg_parser[section]['groups'])
+            print(cfg_parser[section])
             activation = cfg_parser[section]['activation']
             batch_normalize = 'batch_normalize' in cfg_parser[section]
 
