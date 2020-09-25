@@ -113,7 +113,8 @@ def _main(args):
             batch_normalize = 'batch_normalize' in cfg_parser[section]
             if(int('groups' in cfg_parser[section])==1):
               groups = int(cfg_parser[section]['groups'])
-              print(groups)
+            else:
+              groups = 1
             # padding='same' is equivalent to Darknet pad=1
             padding = 'same' if pad == 1 else 'valid'
 
@@ -129,7 +130,7 @@ def _main(args):
 
             print('conv2d', 'bn'
                   if batch_normalize else '  ', activation, weights_shape)
-
+            print('darknet_w_shape:',darknet_w_shape)
             conv_bias = np.ndarray(
                 shape=(filters, ),
                 dtype='float32',
