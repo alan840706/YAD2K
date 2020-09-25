@@ -110,10 +110,10 @@ def _main(args):
             stride = int(cfg_parser[section]['stride'])
             pad = int(cfg_parser[section]['pad'])
             #groups = int(cfg_parser[section]['groups'])
-            print(cfg_parser[section])
             activation = cfg_parser[section]['activation']
             batch_normalize = 'batch_normalize' in cfg_parser[section]
-
+            groups = 'groups' in cfg_parser[section]
+            print(batch_normalize)
             # padding='same' is equivalent to Darknet pad=1
             padding = 'same' if pad == 1 else 'valid'
 
