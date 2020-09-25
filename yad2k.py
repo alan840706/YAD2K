@@ -124,7 +124,7 @@ def _main(args):
             prev_layer_shape = K.int_shape(prev_layer)
 
             # TODO: This assumes channel last dim_ordering.
-            weights_shape = (size, size, prev_layer_shape[-1]/groups_count, filters)
+            weights_shape = (size, size, prev_layer_shape[-1], filters)
             darknet_w_shape = (filters, weights_shape[2], size, size)
             weights_size = np.product(weights_shape)
 
@@ -181,7 +181,6 @@ def _main(args):
             conv_layer = (Conv2D(
                 filters, (size, size),
                 strides=(stride, stride),
-                groups=groups_count,
                 kernel_regularizer=l2(weight_decay),
                 use_bias=not batch_normalize,
                 weights=conv_weights,
