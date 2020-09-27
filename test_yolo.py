@@ -91,6 +91,7 @@ def _main(args):
 
     # Check if model is fully convolutional, assuming channel last order.
     model_image_size = yolo_model.layers[0].input_shape[1:3]
+    print(model_image_size)
     is_fixed_size = model_image_size != (None, None)
 
     # Generate colors for drawing bounding boxes.
