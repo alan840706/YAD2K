@@ -7,7 +7,7 @@ import os
 import random
 
 import numpy as np
-from keras import backend as K
+from tensorflow.compat.v1.keras import backend as K
 from keras.models import load_model
 from PIL import Image, ImageDraw, ImageFont
 
