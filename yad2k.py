@@ -10,7 +10,7 @@ import configparser
 import io
 import os
 from collections import defaultdict
-
+from decode import decode_netout, draw_boxes
 import numpy as np
 from keras import backend as K
 from keras.layers import (Conv2D, GlobalAveragePooling2D, Input, Lambda,
@@ -281,6 +281,8 @@ def _main(args):
                           nms_threshold=0.3,
                           anchors=[0.44056, 0.36474, 1.44189, 1.11059, 2.56802, 2.94772, 6.06370, 1.89957, 7.51578, 4.93676], 
                           nb_class=1)
+    image = draw_boxes(image, boxes, labels=['person'])
+    cv2.imwrite('output.jpg', image)
     # Check to see if all weights have been read.
     remaining_weights = len(weights_file.read()) / 4
     weights_file.close()
