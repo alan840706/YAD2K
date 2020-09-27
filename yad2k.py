@@ -16,6 +16,7 @@ from keras import backend as K
 from keras.layers import (Conv2D, GlobalAveragePooling2D, Input, Lambda,
                           MaxPooling2D)
 from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.advanced_activations import ReLU
 from keras.layers.merge import concatenate
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
@@ -173,6 +174,8 @@ def _main(args):
             act_fn = None
             if activation == 'leaky':
                 pass  # Add advanced activation later.
+            elif activation =='relu':
+                pass
             elif activation != 'linear':
                 raise ValueError(
                     'Unknown activation function `{}` in section {}'.format(
