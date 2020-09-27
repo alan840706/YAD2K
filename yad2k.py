@@ -80,8 +80,13 @@ def _main(args):
     # Load weights and config.
     print('Loading weights.')
     weights_file = open(weights_path, 'rb')
-    weights_header = np.ndarray(
-        shape=(4, ), dtype='int32', buffer=weights_file.read(20))
+    weights_header = np.int64(np.ndarray(
+    shape=(4, ), dtype='int32', buffer=weights_file.read(16)))
+    major = weights_header[0]
+    minor = weights_header[1]
+    if (major*10 + minor) >= 2 and major < 1000 and minor < 1000:
+        final = np.int64(np.ndarray(shape=(1, ), dtype='int32', buffer=weights_file.read(4)))
+        weights_header[3] = np.bitwise_or(np.left_shift(final, 4), weights_header[3])
     print('Weights Header: ', weights_header)
     # TODO: Check transpose flag when implementing fully connected layers.
     # transpose = (weight_header[0] > 1000) or (weight_header[1] > 1000)
