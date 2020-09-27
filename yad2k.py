@@ -273,7 +273,7 @@ def _main(args):
 
 
     input_image = cv2.resize(image, (320, 224))
-
+    input_image = np.expand_dims(input_image, 0)
     netout = model.predict([input_image, dummy_array])
 
     boxes = decode_netout(netout[0], 
