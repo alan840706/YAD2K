@@ -23,22 +23,22 @@ parser.add_argument(
     '-a',
     '--anchors_path',
     help='path to anchors file, defaults to yolo_anchors.txt',
-    default='model_data/yolo_anchors.txt')
+    default='YAD2K/model_data/yolo_anchors.txt')
 parser.add_argument(
     '-c',
     '--classes_path',
     help='path to classes file, defaults to coco_classes.txt',
-    default='model_data/coco_classes.txt')
+    default='YAD2K/model_data/coco_classes.txt')
 parser.add_argument(
     '-t',
     '--test_path',
     help='path to directory of test images, defaults to images/',
-    default='images')
+    default='YAD2K/images')
 parser.add_argument(
     '-o',
     '--output_path',
     help='path to output test images, defaults to YAD2K/images/person.jpg',
-    default='YAD2K/images/person.jpg')
+    default='YAD2K/prediction/')
 parser.add_argument(
     '-s',
     '--score_threshold',
