@@ -32,18 +32,18 @@ argparser.add_argument(
     '-a',
     '--anchors_path',
     help='path to anchors file, defaults to yolo_anchors.txt',
-    default=os.path.join('model_data', 'yolo_anchors.txt'))
+    default=os.path.join('YAD2K/model_data', 'yolo_anchors.txt'))
 
 argparser.add_argument(
     '-c',
     '--classes_path',
     help='path to classes file, defaults to pascal_classes.txt',
-    default=os.path.join('..', 'DATA', 'underwater_classes.txt'))
+    default=os.path.join('YAD2K/model_data', 'my_class.txt'))
 
 # Default anchor boxes
 YOLO_ANCHORS = np.array(
-    ((0.57273, 0.677385), (1.87446, 2.06253), (3.33843, 5.47434),
-     (7.88282, 3.52778), (9.77052, 9.16828)))
+    ((0.44056, 0.36474), (1.44189, 1.11059), (2.56802, 2.94772),
+     (6.06370, 1.89957), (7.51578, 4.93676)))
 
 def _main(args):
     data_path = os.path.expanduser(args.data_path)
