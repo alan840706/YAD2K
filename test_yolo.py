@@ -37,8 +37,8 @@ parser.add_argument(
 parser.add_argument(
     '-o',
     '--output_path',
-    help='path to output test images, defaults to images/out',
-    default='images/out')
+    help='path to output test images, defaults to images/person.jpg',
+    default='images/person.jpg')
 parser.add_argument(
     '-s',
     '--score_threshold',
