@@ -4,7 +4,7 @@ Reads Darknet19 config and weights and creates Keras model with TF backend.
 
 Currently only supports layers in Darknet19 config.
 """
-
+import cv2
 import argparse
 import configparser
 import io
