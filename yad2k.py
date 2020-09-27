@@ -268,6 +268,19 @@ def _main(args):
     print(model.summary())
     model.save('{}'.format(output_path))
     print('Saved Keras model to {}'.format(output_path))
+    image = cv2.imread('YAD2K/images/1.jpg')
+    dummy_array = np.zeros((1,1,1,1,50,4))
+
+
+    input_image = cv2.resize(image, (320, 224))
+
+    netout = model.predict([input_image, dummy_array])
+
+    boxes = decode_netout(netout[0], 
+                          obj_threshold=0.3,
+                          nms_threshold=0.3,
+                          anchors=[0.44056, 0.36474, 1.44189, 1.11059, 2.56802, 2.94772, 6.06370, 1.89957, 7.51578, 4.93676], 
+                          nb_class=1)
     # Check to see if all weights have been read.
     remaining_weights = len(weights_file.read()) / 4
     weights_file.close()
