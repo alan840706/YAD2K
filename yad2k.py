@@ -276,12 +276,8 @@ def _main(args):
     input_image = np.expand_dims(input_image, 0)
     netout = model.predict([input_image, dummy_array])
 
-    boxes = decode_netout(netout[0], 
-                          obj_threshold=0.3,
-                          nms_threshold=0.3,
-                          anchors=[0.44056, 0.36474, 1.44189, 1.11059, 2.56802, 2.94772, 6.06370, 1.89957, 7.51578, 4.93676], 
-                          nb_class=1)
-    image = draw_boxes(image, boxes, labels=['person'])
+    print(netout)
+    #image = draw_boxes(image, boxes, labels=['person'])
     cv2.imwrite('output.jpg', image)
     # Check to see if all weights have been read.
     remaining_weights = len(weights_file.read()) / 4
