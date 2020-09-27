@@ -109,7 +109,7 @@ def process_data(images, boxes=None):
     orig_size = np.expand_dims(orig_size, axis=0)
 
     # Image preprocessing.
-    processed_images = [i.resize((416, 416), PIL.Image.BICUBIC) for i in images]
+    processed_images = [i.resize((320, 224), PIL.Image.BICUBIC) for i in images]
     processed_images = [np.array(image, dtype=np.float) for image in processed_images]
     processed_images = [image/255. for image in processed_images]
 
@@ -155,7 +155,7 @@ def get_detector_mask(boxes, anchors):
     detectors_mask = [0 for i in range(len(boxes))]
     matching_true_boxes = [0 for i in range(len(boxes))]
     for i, box in enumerate(boxes):
-        detectors_mask[i], matching_true_boxes[i] = preprocess_true_boxes(box, anchors, [416, 416])
+        detectors_mask[i], matching_true_boxes[i] = preprocess_true_boxes(box, anchors, [224, 320])
 
     return np.array(detectors_mask), np.array(matching_true_boxes)
 
@@ -177,11 +177,11 @@ def create_model(anchors, class_names, load_pretrained=True, freeze_body=True):
 
     '''
 
-    detectors_mask_shape = (13, 13, 5, 1)
-    matching_boxes_shape = (13, 13, 5, 5)
+    detectors_mask_shape = (7, 10, 5, 1)
+    matching_boxes_shape = (7, 10, 5, 5)
 
     # Create model input layers.
-    image_input = Input(shape=(416, 416, 3))
+    image_input = Input(shape=(224, 320, 3))
     boxes_input = Input(shape=(None, 5))
     detectors_mask_input = Input(shape=detectors_mask_shape)
     matching_boxes_input = Input(shape=matching_boxes_shape)
@@ -192,10 +192,10 @@ def create_model(anchors, class_names, load_pretrained=True, freeze_body=True):
 
     if load_pretrained:
         # Save topless yolo:
-        topless_yolo_path = os.path.join('model_data', 'yolo_topless.h5')
+        topless_yolo_path = os.path.join('yolov2-tier_relu.h5')
         if not os.path.exists(topless_yolo_path):
             print("CREATING TOPLESS WEIGHTS FILE")
-            yolo_path = os.path.join('model_data', 'yolo.h5')
+            yolo_path = os.path.join('yolov2-tier_relu.h5')
             model_body = load_model(yolo_path)
             model_body = Model(model_body.inputs, model_body.layers[-2].output)
             model_body.save_weights(topless_yolo_path)
@@ -256,7 +256,7 @@ def train(model, class_names, anchors, image_data, boxes, detectors_mask, matchi
               callbacks=[logging])
     model.save_weights('trained_stage_1.h5')
 
-    model_body, model = create_model(anchors, class_names, load_pretrained=False, freeze_body=False)
+    model_body, model = create_model(anchors, class_names, load_pretrained=true, freeze_body=False)
 
     model.load_weights('trained_stage_1.h5')
 
