@@ -28,7 +28,7 @@ parser.add_argument(
     '-c',
     '--classes_path',
     help='path to classes file, defaults to coco_classes.txt',
-    default='YAD2K/model_data/coco_classes.txt')
+    default='YAD2K/model_data/my_class.txt')
 parser.add_argument(
     '-t',
     '--test_path',
