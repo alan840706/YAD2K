@@ -123,6 +123,7 @@ def _main(args):
             continue
 
         image = Image.open(os.path.join(test_path, image_file))
+        print(model_image_size)
         if is_fixed_size:  # TODO: When resizing we can use minibatch input.
             resized_image = image.resize(
                 tuple(reversed(model_image_size)), Image.BICUBIC)
