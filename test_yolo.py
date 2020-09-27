@@ -91,8 +91,8 @@ def _main(args):
 
     # Check if model is fully convolutional, assuming channel last order.
     model_image_size = yolo_model.layers[0].input_shape[1:3]
-    print(model_image_size)
-    is_fixed_size = model_image_size != (None, None)
+    print(yolo_model)
+    is_fixed_size = len(model_image_size) != 0
 
     # Generate colors for drawing bounding boxes.
     hsv_tuples = [(x / len(class_names), 1., 1.)
@@ -124,7 +124,6 @@ def _main(args):
             continue
 
         image = Image.open(os.path.join(test_path, image_file))
-        print(model_image_size)
         if is_fixed_size:  # TODO: When resizing we can use minibatch input.
             resized_image = image.resize(
                 tuple(reversed(model_image_size)), Image.BICUBIC)
